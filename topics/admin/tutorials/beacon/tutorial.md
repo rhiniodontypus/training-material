@@ -330,12 +330,13 @@ Now that our beacon is running, we need to get data from Galaxy to the Beacon
 >    ```diff
 >    --- a/templates/nginx/galaxy.j2
 >    +++ b/templates/nginx/galaxy.j2
->    @@ -117,4 +117,14 @@ server {
+>    @@ -117,4 +117,15 @@ server {
 >     
 >     	{{ tiaas_nginx_routes }}
 >     
->    +	location /beacon {
->    +		proxy_pass http://{{ groups['beacon_server'][0] }}:5050;
+>    +	location /beacon/ {
+>    +		#proxy_pass http://{{ groups['beacon_server'][0] }}:5050;
+>    +		proxy_pass http://localhost:5050;
 >    +		proxy_http_version 1.1;
 >    +		proxy_set_header Upgrade $http_upgrade;
 >    +		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
